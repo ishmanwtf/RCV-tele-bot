@@ -137,8 +137,9 @@ class PollCreationContextHandler(BaseContextHandler):
             chat_type=chat_type, open_registration=True,
             num_options=poll_message.poll_info.max_options
         )
-
         reply_text = message.reply_text
+        await reply_text(poll_message.text, reply_markup=reply_markup)
+
         bot_username = context.bot.username
         deep_link_url = (
             f'https://t.me/{bot_username}?startgroup='
@@ -146,7 +147,6 @@ class PollCreationContextHandler(BaseContextHandler):
         )
         escaped_deep_link_url = strings.escape_markdown(deep_link_url)
 
-        await reply_text(poll_message.text, reply_markup=reply_markup)
         group_chat_text = (
             "in the group chat of your choice to allow chat members "
             "to register and vote for the poll"
