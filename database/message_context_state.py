@@ -108,6 +108,7 @@ class SerializableMessageContext(pydantic.BaseModel, metaclass=ABCMeta):
         message_id = self.get_message_id()
 
         with database_proxy.atomic():
+            # TODO: delete existing context state of diff type if it exists
             context_state, _ = MessageContextState.build_from_fields(
                 user_id=user_id, message_id=message_id,
                 context_type=self.get_context_type()
